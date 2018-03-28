@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+	<!-- 配置数据源支持jndi数据源和c3p0数据源-->
+	<!-- jndi方式注入数据源 -->
+<!-- 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> -->
+<!-- 		<property name="jndiName"> -->
+<!-- 			<value>jdbc/pool</value> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+	<!-- 总公司数据源-->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<!-- <property name="jndiName">
+			<value>java:/comp/env/dataSource00</value>
+		</property>-->
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+	    <property name="url" value="jdbc:oracle:thin:@10.137.9.101:1521:tknts00" />
+	    <property name="username" value="ntsuser0" />
+	    <property name="password" value="letmein" />
+	</bean> 
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"> 
+              <property name="driverClassName"> 
+                     <value>oracle.jdbc.driver.OracleDriver</value> 
+              </property> 
+              <property name="url"> 
+                     <value>jdbc:oracle:thin:@10.137.9.101:1521:tknts00</value> 
+              </property> 
+              <property name="username"> 
+                     <value>ntsuser0</value> 
+              </property> 
+              <property name="password"> 
+                     <value>letmein</value> 
+              </property> 
+              <property name="maxActive"> 
+                     <value>255</value> 
+              </property> 
+              <property name="maxIdle"> 
+                     <value>2</value> 
+              </property> 
+              <property name="maxWait"> 
+                     <value>120000</value> 
+              </property> 
+       </bean> -->
+	<!-- mybatis 配置 -->
+	<!-- 设置mybatis 扫描包 -->
+	<mybatis-spring:scan base-package="com.taikang.tms.mappers"/>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:/mybatis/config/mybatis-config.xml"></property>
+		<property name="mapperLocations" value="classpath*:/mybatis/mappers/*.xml"></property>
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- 数据源 北京分公司  -->
+	<bean id="dataSource_1" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<!-- <property name="jndiName">
+			<value>java:/comp/env/dataSource00</value>
+		</property> -->
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+	    <property name="url" value="jdbc:oracle:thin:@10.137.9.101:1521:tknts00" />
+	    <property name="username" value="ntsuser0" />
+	    <property name="password" value="letmein" />
+	</bean>
+	<!-- <bean id="dataSource_1" class="org.apache.commons.dbcp.BasicDataSource"> 
+              <property name="driverClassName"> 
+                     <value>oracle.jdbc.driver.OracleDriver</value> 
+              </property> 
+              <property name="url"> 
+                     <value>jdbc:oracle:thin:@10.137.9.101:1521:tknts00</value> 
+              </property> 
+              <property name="username"> 
+                     <value>ntsuser0</value> 
+              </property> 
+              <property name="password"> 
+                     <value>letmein</value> 
+              </property> 
+              <property name="maxActive"> 
+                     <value>255</value> 
+              </property> 
+              <property name="maxIdle"> 
+                     <value>2</value> 
+              </property> 
+              <property name="maxWait"> 
+                     <value>120000</value> 
+              </property> 
+       </bean>  -->
+       
+	<mybatis-spring:scan base-package="com.taikang.tms.mappers"/>
+	<bean id="sqlSessionFactory_1" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:/mybatis/config/mybatis-config.xml"></property>
+		<property name="mapperLocations" value="classpath*:/mybatis/mappers/*.xml"></property>
+		<property name="dataSource" ref="dataSource_1"></property>
+	</bean>
+	<bean id="sqlSession_1" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory_1" />
+	</bean>
+	
+	
+	<!-- 数据源 湖北分公司 -->
+	<bean id="dataSource_2" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<!-- <property name="jndiName">
+			<value>java:/comp/env/dataSource00</value>
+		</property> -->
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+	    <property name="url" value="jdbc:oracle:thin:@10.137.9.101:1521:tknts00" />
+	    <property name="username" value="ntsuser0" />
+	    <property name="password" value="letmein" />
+	</bean>
+	<!-- <bean id="dataSource_2" class="org.apache.commons.dbcp.BasicDataSource"> 
+              <property name="driverClassName"> 
+                     <value>oracle.jdbc.driver.OracleDriver</value> 
+              </property> 
+              <property name="url"> 
+                     <value>jdbc:oracle:thin:@10.137.9.101:1521:tknts00</value> 
+              </property> 
+              <property name="username"> 
+                     <value>ntsuser0</value> 
+              </property> 
+              <property name="password"> 
+                     <value>letmein</value> 
+              </property> 
+              <property name="maxActive"> 
+                     <value>255</value> 
+              </property> 
+              <property name="maxIdle"> 
+                     <value>2</value> 
+              </property> 
+              <property name="maxWait"> 
+                     <value>120000</value> 
+              </property> 
+       </bean>  -->
+       
+	<mybatis-spring:scan base-package="com.taikang.tms.mappers"/>
+	<bean id="sqlSessionFactory_2" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:/mybatis/config/mybatis-config.xml"></property>
+		<property name="mapperLocations" value="classpath*:/mybatis/mappers/*.xml"></property>
+		<property name="dataSource" ref="dataSource_2"></property>
+	</bean>
+	<bean id="sqlSession_2" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory_2" />
+	</bean>
+	
+	<!-- 设置事务管理 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<!-- 配置事务传播 -->
+	<tx:advice id="txAdvice">
+		<tx:attributes>
+			<tx:method name="save*"   propagation="REQUIRED" rollback-for="java.lang.Excption"/>
+			<tx:method name="insert*" propagation="REQUIRED" rollback-for="java.lang.Excption"/>
+			<tx:method name="add*"    propagation="REQUIRED" rollback-for="java.lang.Excption"/>
+			<tx:method name="update*" propagation="REQUIRED" rollback-for="java.lang.Excption"/>
+			<tx:method name="modify*" propagation="REQUIRED" rollback-for="java.lang.Excption"/>
+			<tx:method name="delete*" propagation="REQUIRED" rollback-for="java.lang.Excption"/>
+			<tx:method name="remove*" propagation="REQUIRED" rollback-for="java.lang.Excption"/>
+			<tx:method name="query*" read-only="true" />
+			<tx:method name="get*"   read-only="true" />
+			<tx:method name="find*"  read-only="true" />
+			<tx:method name="*" rollback-for="java.lang.Excption" />
+		</tx:attributes>
+	</tx:advice>
+	<!-- 声明式事务管理 -->
+	<aop:config>
+		<aop:pointcut id="txpoint"
+			expression="execution(* com.taikang.tms.service..*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txpoint" />
+	</aop:config>
+
+
+</beans>

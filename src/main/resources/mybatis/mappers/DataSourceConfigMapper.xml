@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="DataSourceConfigMapper">
+	<cache type="com.taikang.tms.cache.NTSRedisCache" />
+	<resultMap type="dataSourceConfig" id="dataSourceConfig">
+		<result property="id" column="id" />
+		<result property="managecom" column="managecom" />
+		<result property="dataSourceName" column="dataSourceName" />
+		<result property="managename" column="managename" />
+	</resultMap>
+	<select id="selectAllConfig" resultMap="dataSourceConfig" useCache="false">
+		select id,managecom,dataSourceName,managename from dataSourceConfig
+	</select>
+	<select id="selectConfigByManagecom" resultMap="dataSourceConfig" parameterType="String" useCache="true">
+		select id,managecom,dataSourceName,managename from dataSourceConfig where managecom=#{managecom} 
+	</select>
+	<insert id="addconfig"  parameterType="dataSourceConfig">
+		insert into dataSourceConfig (ID, MANAGECOM, DATASOURCENAME, MANAGENAME)
+			values (datasourceconfig_sequence.nextval, #{managecom}, #{dataSourceName}, #{managename})
+	</insert>
+	<update id="updateconfig" parameterType="dataSourceConfig">
+		<![CDATA[ update dataSourceConfig set MANAGECOM = #{managecom} ,DATASOURCENAME = #{dataSourceName} ,MANAGENAME = #{managename} 
+					where id = #{id} ]]>
+	</update>
+	<delete id="deleteconfig"  parameterType="dataSourceConfig">
+		<![CDATA[ DELETE FROM dataSourceConfig where id = #{id} ]]>
+	</delete>
+</mapper>
